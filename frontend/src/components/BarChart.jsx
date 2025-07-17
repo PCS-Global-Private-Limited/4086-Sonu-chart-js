@@ -12,6 +12,7 @@ import {
     Legend,
     Title,
 } from 'chart.js';
+import Heading from "./Heading";
 
 ChartJS.register(
     CategoryScale,
@@ -36,11 +37,9 @@ const BarChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white p-4 rounded-xl shadow-md">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">
-                Bar chart
-            </h1>
-            <Bar data={data} />
+        <div className="bg-white p-4 rounded-xl shadow-md h-screen">
+            <Heading title="Bar chart" />
+                <Bar data={data} />
         </div>
     )
 };

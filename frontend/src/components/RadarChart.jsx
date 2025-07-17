@@ -13,6 +13,7 @@ import {
     Title,
     RadialLinearScale,
 } from 'chart.js';
+import Heading from "./Heading";
 
 ChartJS.register(
     CategoryScale,
@@ -48,12 +49,12 @@ const RadarChart = ({ products }) => {
         ],
     };
 
-    return <div className="bg-white p-4 rounded-xl shadow-md">
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">
-                    Radar chart
-                </h1>
-                <Radar data={data} />
-            </div>;
+    return (
+        <div className="bg-white p-4 rounded-xl shadow-md h-screen">
+            <Heading title="Radar chart" />
+            <Radar data={data} />
+        </div>
+    );
 };
 
 export default RadarChart;

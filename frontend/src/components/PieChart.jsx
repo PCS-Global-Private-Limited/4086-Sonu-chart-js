@@ -12,6 +12,7 @@ import {
     Legend,
     Title,
 } from 'chart.js';
+import Heading from "./Heading";
 
 ChartJS.register(
     CategoryScale,
@@ -40,12 +41,10 @@ const PieChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white p-4 rounded-xl shadow-md">
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">
-                        Pie chart
-                    </h1>
-                    <Pie data={data} />
-                </div>
+        <div className="bg-white p-4 rounded-xl shadow-md h-screen ">
+            <Heading title="Pie chart" />
+            <Pie data={data} />
+        </div>
     );
 };
 

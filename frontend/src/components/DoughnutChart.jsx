@@ -12,6 +12,7 @@ import {
     Legend,
     Title,
 } from 'chart.js';
+import Heading from "./Heading";
 
 ChartJS.register(
     CategoryScale,
@@ -40,10 +41,8 @@ const DoughnutChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white p-4 rounded-xl shadow-md">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">
-                Doughtnut chart
-            </h1>
+        <div className="bg-white p-4 rounded-xl shadow-md h-screen">
+            <Heading title="Doughtnut chart" />
             <Doughnut data={data} />
         </div>
     );

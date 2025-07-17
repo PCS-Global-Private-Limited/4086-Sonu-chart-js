@@ -12,6 +12,7 @@ import {
     Legend,
     Title,
 } from 'chart.js';
+import Heading from "./Heading";
 
 ChartJS.register(
     CategoryScale,
@@ -40,13 +41,11 @@ const PolarAreaChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white p-4 rounded-xl shadow-md">
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">
-                        Polar area chart
-                    </h1>
-                    <PolarArea data={data} />
-                </div>
-    );
+        <div className="bg-white p-4 rounded-xl shadow-md h-screen">
+            <Heading title="Polar area chart" />
+            <PolarArea data={data} />
+        </div>
+    )
 };
 
 export default PolarAreaChart;
