@@ -41,7 +41,7 @@ const PolarAreaChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white p-4 rounded-xl shadow-md h-screen">
+        <div className="bg-white rounded-xl shadow-md h-screen">
             <Heading title="Polar area chart" />
             <PolarArea data={data} />
         </div>

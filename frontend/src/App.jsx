@@ -8,10 +8,14 @@ import RadarChart from "./components/RadarChart.jsx";
 import PolarAreaChart from "./components/PolarAreaChart.jsx";
 import BubbleChart from "./components/BubbleChart.jsx";
 import ScatterChart from "./components/ScatterChart.jsx";
+import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
+import DropZone from "./components/DropZone.jsx"
+import DraggableChart from "./components/DraggableChart.jsx"
 
 function App() {
   const [products, setProducts] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [droppedChartId, setDroppedChartId] = useState(null);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URI}/api/fetch-all-product`)
@@ -34,47 +38,85 @@ function App() {
     }
   };
 
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (over && over.id === "drop-zone") {
+      setDroppedChartId(active.id);
+    }
+  };
+
+  const renderChartById = (id, size = "normal") => {
+    const chartProps = { products };
+    const wrapperClass =
+      size === "large"
+        ? "w-full h-full bg-white rounded-xl shadow-lg p-4"
+        : "w-full h-[200px] overflow-hidden";
+
+    switch (id) {
+      case "bar": return <div className={wrapperClass}><BarChart {...chartProps} /></div>;
+      case "line": return <div className={wrapperClass}><LineChart {...chartProps} /></div>;
+      case "pie": return <div className={wrapperClass}><PieChart {...chartProps} /></div>;
+      case "doughtnut": return <div className={wrapperClass}><DoughnutChart {...chartProps} /></div>;
+      case "radar": return <div className={wrapperClass}><RadarChart {...chartProps} /></div>;
+      case "polar": return <div className={wrapperClass}><PolarAreaChart {...chartProps} /></div>;
+      case "bubble": return <div className={wrapperClass}><BubbleChart {...chartProps} /></div>;
+      case "scatter": return <div className={wrapperClass}><ScatterChart {...chartProps} /></div>;
+      default: return null;
+    }
+  };
+
+
   return (
-    <div>
-      <div className="p-4 bg-white shadow-md flex justify-between items-center sticky top-0">
-        <h1 className="text-2xl font-bold">Product Dashboard</h1>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md"
-        >
-          Add Product
-        </button>
+    <DndContext onDragEnd={handleDragEnd}>
+      <div>
+        <div className="p-4 bg-white shadow-md flex justify-between items-center sticky top-0">
+          <h1 className="text-2xl font-bold">Product Dashboard</h1>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="bg-blue-600 text-white px-4 py-2 rounded-md"
+          >
+            Add Product
+          </button>
+        </div>
+
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center underline">
+          Quantity Sold Overview 📦
+        </h1>
+
+        {modalOpen && (
+          <AddProductModal
+            onClose={() => setModalOpen(false)}
+            onAdd={handleAddProduct}
+          />
+        )}
+
+        {products.length === 0 ? (
+          <div className="h-[80vh] flex flex-col items-center justify-center bg-gray-100">
+            <h2 className="text-3xl font-semibold text-gray-700 mb-2">No Products Found</h2>
+            <p className="text-lg text-gray-500">Please add some products to visualize the data.</p>
+          </div>
+        ) : (
+          <div className="flex justify-between items-center">
+            <DropZone>
+              {droppedChartId && renderChartById(droppedChartId, "large")}
+            </DropZone>
+
+            <div className="charts-grid grid grid-cols-2 gap-4 p-4 max-w-[400px]">
+              {["bar", "line", "pie", "doughtnut", "radar", "polar", "bubble", "scatter"]
+                .filter((id) => id !== droppedChartId)
+                .map((id) => (
+                  <DraggableChart key={id} id={id}>
+                    <div className="bg-white rounded-lg shadow-md p-2 w-full h-[200px] overflow-hidden">
+                      {renderChartById(id)}
+                    </div>
+                  </DraggableChart>
+                ))}
+            </div>
+
+          </div>
+        )}
       </div>
-
-      <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center underline">
-        Quantity Sold Overview 📦
-      </h1>
-
-      {modalOpen && (
-        <AddProductModal
-          onClose={() => setModalOpen(false)}
-          onAdd={handleAddProduct}
-        />
-      )}
-
-      {products.length === 0 ? (
-        <div className="h-[80vh] flex flex-col items-center justify-center bg-gray-100">
-          <h2 className="text-3xl font-semibold text-gray-700 mb-2">No Products Found</h2>
-          <p className="text-lg text-gray-500">Please add some products to visualize the data.</p>
-        </div>
-      ) : (
-        <div className="charts-grid">
-          <BarChart products={products} />
-          <LineChart products={products} />
-          <PieChart products={products} />
-          <DoughnutChart products={products} />
-          <RadarChart products={products} />
-          <PolarAreaChart products={products} />
-          <BubbleChart products={products} />
-          <ScatterChart products={products} />
-        </div>
-      )}
-    </div>
+    </DndContext>
   );
 }
 
