@@ -27,7 +27,7 @@ ChartJS.register(
 );
 
 const DoughnutChart = ({ products }) => {
-    const categories = [...new Set(products.map(p => p.category))];
+    const categories  = [...new Set(products.map(p => p.category))];
 
     const data = {
         labels: categories,
@@ -41,7 +41,7 @@ const DoughnutChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md h-screen">
+        <div className="bg-white rounded-xl shadow-md">
             <Heading title="Doughtnut chart" />
             <Doughnut data={data} />
         </div>

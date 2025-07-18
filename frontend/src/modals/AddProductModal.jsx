@@ -17,7 +17,17 @@ const AddProductModal = ({ onClose, onAdd }) => {
     quantitySold: "",
   });
 
+  const [CustomCategory, setCustomCategory] = useState(false)
+
   const handleChange = (e) => {
+    console.log("e.target.value", e.target.value);
+
+    if (!predefinedCategories.includes(e.target.value)) {
+      setCustomCategory(true)
+    }
+    else {
+      setCustomCategory(false)
+    }
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -54,6 +64,18 @@ const AddProductModal = ({ onClose, onAdd }) => {
           </div>
           <div>
             <label className="block mb-1">Category</label>
+            {
+              CustomCategory && <input
+                type="text"
+                name="category"
+                required
+                autoFocus
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
+                value={formData.category}
+                onChange={handleChange}
+              />
+            }
+
             <select
               name="category"
               required
@@ -61,12 +83,12 @@ const AddProductModal = ({ onClose, onAdd }) => {
               value={formData.category}
               onChange={handleChange}
             >
-              <option value="">Select Category</option>
               {predefinedCategories.map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
                 </option>
               ))}
+              <option value="Custom">Custom</option>
             </select>
           </div>
           <div>

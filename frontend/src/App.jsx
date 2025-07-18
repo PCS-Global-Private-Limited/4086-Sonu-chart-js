@@ -49,8 +49,8 @@ function App() {
     const chartProps = { products };
     const wrapperClass =
       size === "large"
-        ? "w-full h-full bg-white rounded-xl shadow-lg p-4"
-        : "w-full h-[200px] overflow-hidden";
+        ? "w-full h-full bg-white rounded-xl p-4"
+        : "w-full";
 
     switch (id) {
       case "bar": return <div className={wrapperClass}><BarChart {...chartProps} /></div>;
@@ -96,22 +96,23 @@ function App() {
             <p className="text-lg text-gray-500">Please add some products to visualize the data.</p>
           </div>
         ) : (
-          <div className="flex justify-between items-center">
-            <DropZone>
-              {droppedChartId && renderChartById(droppedChartId, "large")}
-            </DropZone>
+          <div className="md:flex justify-between items-center">
 
-            <div className="charts-grid grid grid-cols-2 gap-4 p-4 max-w-[400px]">
+            <div className="charts-grid grid grid-cols-4 md:grid-cols-2 gap-4 p-4">
               {["bar", "line", "pie", "doughtnut", "radar", "polar", "bubble", "scatter"]
                 .filter((id) => id !== droppedChartId)
                 .map((id) => (
                   <DraggableChart key={id} id={id}>
-                    <div className="bg-white rounded-lg shadow-md p-2 w-full h-[200px] overflow-hidden">
+                    <div className="bg-white rounded-lg shadow-md">
                       {renderChartById(id)}
                     </div>
                   </DraggableChart>
                 ))}
             </div>
+
+            <DropZone>
+              {droppedChartId && renderChartById(droppedChartId, "large")}
+            </DropZone>
 
           </div>
         )}
