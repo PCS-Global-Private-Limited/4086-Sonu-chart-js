@@ -28,17 +28,21 @@ ChartJS.register(
 
 const LineChart = ({ products }) => {
     const data = {
-        labels: products.map(p => new Date(p.createdAt).toLocaleDateString()),
+        labels: products.map(p => p.name),
         datasets: [{
-            label: "Quantity Sold Over Time",
+            label: "Quantity Sold",
             data: products.map(p => p.quantitySold),
             borderColor: "rgba(153,102,255,1)",
-            fill: false,
+            backgroundColor: "rgba(153,102,255,0.2)",
+            fill: true,
+            tension: 0.3, // smooth curve
+            pointRadius: 5,
+            pointHoverRadius: 7,
         }],
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md">
+        <div className="bg-white rounded-xl shadow-md p-4">
             <Heading title="Line chart" />
             <Line data={data} />
         </div>

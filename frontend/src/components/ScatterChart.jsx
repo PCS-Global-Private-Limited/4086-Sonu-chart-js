@@ -33,17 +33,46 @@ const ScatterChart = ({ products }) => {
             data: products.map(p => ({
                 x: p.price,
                 y: p.quantitySold,
+                name: p.name,
             })),
             backgroundColor: "rgba(75,192,192,1)",
         }],
     };
 
+    const options = {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        const point = context.raw;
+                        return `${point.name}: ₹${point.x}, Sold: ${point.y}`;
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Price (₹)',
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Quantity Sold',
+                }
+            }
+        }
+    };
+
     return (
-        <div className="bg-white rounded-xl shadow-md">
-            <Heading title="Radar chart" />
-            <Scatter data={data} />
+        <div className="bg-white rounded-xl shadow-md p-4">
+            <Heading title="Scatter chart" />
+            <Scatter data={data} options={options} />
         </div>
-    )
+    );
 };
+
 
 export default ScatterChart;

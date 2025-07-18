@@ -35,26 +35,22 @@ const RadarChart = ({ products }) => {
         labels: topProducts.map(p => p.name),
         datasets: [
             {
-                label: "Price",
-                data: topProducts.map(p => p.price),
-                backgroundColor: "rgba(255,99,132,0.2)",
-                borderColor: "rgba(255,99,132,1)",
-            },
-            {
                 label: "Quantity Sold",
                 data: topProducts.map(p => p.quantitySold),
                 backgroundColor: "rgba(54,162,235,0.2)",
                 borderColor: "rgba(54,162,235,1)",
+                pointBackgroundColor: "rgba(54,162,235,1)",
             }
         ],
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md">
+        <div className="bg-white rounded-xl shadow-md p-4">
             <Heading title="Radar chart" />
             <Radar data={data} />
         </div>
     );
 };
+
 
 export default RadarChart;

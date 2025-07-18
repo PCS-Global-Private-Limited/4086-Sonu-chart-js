@@ -27,25 +27,29 @@ ChartJS.register(
 );
 
 const PieChart = ({ products }) => {
-    const categories = [...new Set(products.map(p => p.category))];
+    const productNames = products.map(p => p.name);
+    const quantities = products.map(p => p.quantitySold);
 
     const data = {
-        labels: categories,
+        labels: productNames,
         datasets: [{
-            data: categories.map(cat =>
-                products.filter(p => p.category === cat)
-                    .reduce((sum, p) => sum + p.quantitySold, 0)
-            ),
-            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#8e44ad", "#2ecc71"],
+            data: quantities,
+            backgroundColor: [
+                "#FF6384", "#36A2EB", "#FFCE56", "#8e44ad", "#2ecc71",
+                "#f39c12", "#1abc9c", "#e74c3c", "#34495e", "#9b59b6"
+            ],
         }],
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md">
+        <div className="bg-white rounded-xl shadow-md p-4">
             <Heading title="Pie chart" />
             <Pie data={data} />
         </div>
     );
 };
+
+
+
 
 export default PieChart;

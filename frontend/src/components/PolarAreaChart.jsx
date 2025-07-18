@@ -27,25 +27,27 @@ ChartJS.register(
 );
 
 const PolarAreaChart = ({ products }) => {
-    const categories = [...new Set(products.map(p => p.category))];
+  const productNames = products.map(p => p.name);
+  const quantities = products.map(p => p.quantitySold);
 
-    const data = {
-        labels: categories,
-        datasets: [{
-            data: categories.map(cat =>
-                products.filter(p => p.category === cat)
-                    .reduce((sum, p) => sum + p.quantitySold, 0)
-            ),
-            backgroundColor: ["#f39c12", "#1abc9c", "#9b59b6", "#2ecc71", "#e74c3c"],
-        }],
-    };
+  const data = {
+    labels: productNames,
+    datasets: [{
+      data: quantities,
+      backgroundColor: [
+        "#f39c12", "#1abc9c", "#9b59b6", "#2ecc71", "#e74c3c",
+        "#FF6384", "#36A2EB", "#FFCE56", "#8e44ad", "#34495e"
+      ],
+    }],
+  };
 
-    return (
-        <div className="bg-white rounded-xl shadow-md">
-            <Heading title="Polar area chart" />
-            <PolarArea data={data} />
-        </div>
-    )
+  return (
+    <div className="bg-white rounded-xl shadow-md p-4">
+      <Heading title="Polar area chart" />
+      <PolarArea data={data} />
+    </div>
+  );
 };
+
 
 export default PolarAreaChart;
