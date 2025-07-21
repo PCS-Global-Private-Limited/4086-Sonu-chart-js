@@ -17,22 +17,23 @@ const AddProductModal = ({ onClose, onAdd }) => {
     quantitySold: "",
   });
 
-  const [CustomCategory, setCustomCategory] = useState(false)
+  const [customCategoryMode, setCustomCategoryMode] = useState(false);
 
   const handleChange = (e) => {
-    console.log("e.target.value", e.target.value);
-
-    if (!predefinedCategories.includes(e.target.value)) {
-      setCustomCategory(true)
+    const { name, value } = e.target;
+    if (name === "category" && e.target.tagName === "SELECT") {
+      if (value === "Custom") {
+        setCustomCategoryMode(true);
+        setFormData((prev) => ({ ...prev, category: "" }));
+      } else {
+        setCustomCategoryMode(false);
+        setFormData((prev) => ({ ...prev, category: value }));
+      }
+      return;
     }
-    else {
-      setCustomCategory(false)
-    }
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,6 +51,7 @@ const AddProductModal = ({ onClose, onAdd }) => {
       <div className="bg-white p-6 rounded-xl w-[90%] max-w-md shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-center">Add Product</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
+
           <div>
             <label className="block mb-1">Name</label>
             <input
@@ -62,35 +64,36 @@ const AddProductModal = ({ onClose, onAdd }) => {
               onChange={handleChange}
             />
           </div>
+
           <div>
             <label className="block mb-1">Category</label>
-            {
-              CustomCategory && <input
+            {customCategoryMode && (
+              <input
                 type="text"
                 name="category"
                 required
-                autoFocus
-                className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
+                placeholder="Enter custom category"
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-2"
                 value={formData.category}
                 onChange={handleChange}
               />
-            }
+            )}
 
             <select
               name="category"
               required
               className="w-full border border-gray-300 rounded px-3 py-2"
-              value={formData.category}
+              value={customCategoryMode ? "Custom" : formData.category}
               onChange={handleChange}
             >
+              <option value="">Select category</option>
               {predefinedCategories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
+                <option key={cat} value={cat}>{cat}</option>
               ))}
               <option value="Custom">Custom</option>
             </select>
           </div>
+
           <div>
             <label className="block mb-1">Price</label>
             <input
@@ -102,6 +105,7 @@ const AddProductModal = ({ onClose, onAdd }) => {
               onChange={handleChange}
             />
           </div>
+
           <div>
             <label className="block mb-1">Quantity Sold</label>
             <input
@@ -113,6 +117,7 @@ const AddProductModal = ({ onClose, onAdd }) => {
               onChange={handleChange}
             />
           </div>
+
           <div className="flex justify-end gap-2 pt-4">
             <button
               type="button"
@@ -128,6 +133,7 @@ const AddProductModal = ({ onClose, onAdd }) => {
               Add Product
             </button>
           </div>
+
         </form>
       </div>
     </div>
@@ -135,3 +141,4 @@ const AddProductModal = ({ onClose, onAdd }) => {
 };
 
 export default AddProductModal;
+
