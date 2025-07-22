@@ -11,11 +11,14 @@ import ScatterChart from "./components/ScatterChart.jsx";
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import DropZone from "./components/DropZone.jsx"
 import DraggableChart from "./components/DraggableChart.jsx"
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [products, setProducts] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [droppedChartId, setDroppedChartId] = useState(null);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URI}/api/fetch-all-product`)
@@ -70,13 +73,21 @@ function App() {
     <DndContext onDragEnd={handleDragEnd}>
       <div>
         <div className="p-4 bg-white shadow-md flex justify-between items-center sticky top-0">
-          <h1 className="text-2xl font-bold">Product Dashboard</h1>
-          <button
-            onClick={() => setModalOpen(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md"
-          >
-            Add Product
-          </button>
+          <h1 className="sm:text-2xl font-bold">Product Dashboard</h1>
+          <div>
+            <button
+              onClick={() => setModalOpen(true)}
+              className="bg-blue-600 text-white px-2 sm:px-3 py-1 mx-2 sm:mx-4 rounded-md"
+            >
+              Add Product
+            </button>
+            <button
+              onClick={() => navigate("/dashboard")}
+              className="bg-blue-600 text-white px-2 sm:px-3 py-1 rounded-md"
+            >
+              Dashboard
+            </button>
+          </div>
         </div>
 
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center underline">
