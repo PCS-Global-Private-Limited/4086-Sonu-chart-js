@@ -37,10 +37,7 @@ const BarChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md">
-            <Heading title="Bar chart" />
-            <Bar data={data} />
-        </div>
+        <Bar data={data} />
     )
 };
 

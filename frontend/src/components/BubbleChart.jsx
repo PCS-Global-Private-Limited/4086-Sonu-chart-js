@@ -40,10 +40,7 @@ const BubbleChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md">
-            <Heading title="Bubble chart" />
-            <Bubble data={data} />
-        </div>
+        <Bubble data={data} />
     );
 };
 

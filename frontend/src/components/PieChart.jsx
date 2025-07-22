@@ -42,10 +42,7 @@ const PieChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md p-4">
-            <Heading title="Pie chart" />
-            <Pie data={data} />
-        </div>
+         <Pie data={data} />
     );
 };
 

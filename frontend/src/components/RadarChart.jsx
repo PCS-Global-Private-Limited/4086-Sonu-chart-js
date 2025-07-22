@@ -45,10 +45,7 @@ const RadarChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md p-4">
-            <Heading title="Radar chart" />
-            <Radar data={data} />
-        </div>
+         <Radar data={data} />
     );
 };
 

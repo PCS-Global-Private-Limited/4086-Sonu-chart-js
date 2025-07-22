@@ -42,10 +42,7 @@ const LineChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md p-4">
-            <Heading title="Line chart" />
-            <Line data={data} />
-        </div>
+         <Line data={data} />
     );
 };
 

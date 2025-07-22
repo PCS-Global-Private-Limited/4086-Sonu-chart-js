@@ -52,8 +52,8 @@ function App() {
     const chartProps = { products };
     const wrapperClass =
       size === "large"
-        ? "w-full h-full bg-white rounded-xl p-4"
-        : "w-full";
+        ? "w-full h-[80vh] bg-white rounded-xl flex justify-center items-center"
+        : "w-full h-full flex justify-center items-center";
 
     switch (id) {
       case "bar": return <div className={wrapperClass}><BarChart {...chartProps} /></div>;
@@ -107,14 +107,15 @@ function App() {
             <p className="text-lg text-gray-500">Please add some products to visualize the data.</p>
           </div>
         ) : (
-          <div className="md:flex justify-between items-center">
+          <div className="md:flex justify-between items-start md:gap-x-8">
 
-            <div className="charts-grid grid grid-cols-4 md:grid-cols-2 gap-4 p-4">
+            <div className="charts-grid grid grid-cols-4 md:grid-cols-2 gap-y-4 md:gap-x-12 lg:gap-x-8 p-4">
               {["bar", "line", "pie", "doughtnut", "radar", "polar", "bubble", "scatter"]
                 .filter((id) => id !== droppedChartId)
                 .map((id) => (
                   <DraggableChart key={id} id={id}>
-                    <div className="bg-white rounded-lg shadow-md">
+                    <h1 className="text-center text-xs w-[5rem] sm:w-[6rem]">{id[0].toUpperCase()}{id.slice(1, id.length)} chart</h1>
+                    <div className="bg-white rounded-lg w-[5rem] sm:w-[6rem] h-[4rem] sm:h-[5rem] shadow-md">
                       {renderChartById(id)}
                     </div>
                   </DraggableChart>

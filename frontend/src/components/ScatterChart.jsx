@@ -67,10 +67,7 @@ const ScatterChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md p-4">
-            <Heading title="Scatter chart" />
-            <Scatter data={data} options={options} />
-        </div>
+         <Scatter data={data} options={options} />
     );
 };
 

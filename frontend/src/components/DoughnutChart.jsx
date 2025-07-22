@@ -42,10 +42,7 @@ const DoughnutChart = ({ products }) => {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-md">
-            <Heading title="Doughtnut chart" />
-            <Doughnut data={data} />
-        </div>
+        <Doughnut data={data} />
     );
 };
 

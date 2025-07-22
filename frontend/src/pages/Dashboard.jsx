@@ -154,7 +154,7 @@ const ProductDashboard = () => {
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-                                        <p className="text-2xl font-bold text-gray-900">${totalRevenue.toLocaleString()}</p>
+                                        <p className="text-2xl font-bold text-gray-900">₹{totalRevenue.toLocaleString()}</p>
                                     </div>
                                     <DollarSign className="h-12 w-12 text-green-600" />
                                 </div>
@@ -174,7 +174,7 @@ const ProductDashboard = () => {
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <p className="text-sm font-medium text-gray-600">Avg Price</p>
-                                        <p className="text-2xl font-bold text-gray-900">${avgPrice.toFixed(2)}</p>
+                                        <p className="text-2xl font-bold text-gray-900">₹{avgPrice.toFixed(2)}</p>
                                     </div>
                                     <TrendingUp className="h-12 w-12 text-orange-600" />
                                 </div>
@@ -238,7 +238,7 @@ const ProductDashboard = () => {
                                                             className="border border-gray-300 rounded px-2 py-1 text-sm w-20"
                                                         />
                                                     ) : (
-                                                        <div className="text-sm text-gray-900">${product.price}</div>
+                                                        <div className="text-sm text-gray-900">₹{product.price}</div>
                                                     )}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -254,7 +254,7 @@ const ProductDashboard = () => {
                                                     )}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-900">${(product.price * product.quantitySold).toLocaleString()}</div>
+                                                    <div className="text-sm text-gray-900">₹{(product.price * product.quantitySold).toLocaleString()}</div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     {new Date(product.createdAt).toLocaleDateString()}
