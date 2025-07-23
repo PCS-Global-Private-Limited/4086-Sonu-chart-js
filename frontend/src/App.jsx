@@ -16,7 +16,9 @@ import { useNavigate } from 'react-router-dom';
 function App() {
   const [products, setProducts] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [droppedChartId, setDroppedChartId] = useState(null);
+  // const [droppedChartId, setDroppedChartId] = useState(null);
+  const [droppedChartId1, setDroppedChartId1] = useState(null);
+  const [droppedChartId2, setDroppedChartId2] = useState(null);
 
   const navigate = useNavigate()
 
@@ -43,10 +45,14 @@ function App() {
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
-    if (over && over.id === "drop-zone") {
-      setDroppedChartId(active.id);
+
+    if (over?.id === "drop-zone-1") {
+      setDroppedChartId1(active.id);
+    } else if (over?.id === "drop-zone-2") {
+      setDroppedChartId2(active.id);
     }
   };
+
 
   const renderChartById = (id, size = "normal") => {
     const chartProps = { products };
@@ -107,26 +113,29 @@ function App() {
             <p className="text-lg text-gray-500">Please add some products to visualize the data.</p>
           </div>
         ) : (
-          <div className="md:flex justify-between items-start md:gap-x-8">
-
-            <div className="charts-grid grid grid-cols-4 md:grid-cols-2 gap-y-4 md:gap-x-12 lg:gap-x-8 p-4">
+          <div className="flex flex-col gap-y-6 xl:flex-row justify-between items-start md:gap-x-3 p-4">
+            <div className="charts-grid grid grid-cols-4 sm:grid-cols-5 xl:grid-cols-1 xl:w-[12rem] gap-x-2 gap-y-4 py-6">
               {["bar", "line", "pie", "doughtnut", "radar", "polar", "bubble", "scatter"]
-                .filter((id) => id !== droppedChartId)
+                .filter((id) => id !== droppedChartId1 && id !== droppedChartId2)
                 .map((id) => (
                   <DraggableChart key={id} id={id}>
-                    <h1 className="text-center text-xs w-[5rem] sm:w-[6rem]">{id[0].toUpperCase()}{id.slice(1, id.length)} chart</h1>
-                    <div className="bg-white rounded-lg w-[5rem] sm:w-[6rem] h-[4rem] sm:h-[5rem] shadow-md">
+                    <h1 className="text-center text-[10px]">{id[0].toUpperCase() + id.slice(1)} chart</h1>
+                    <div className="bg-white rounded-lg shadow-md h-[5rem] xl:h-[3rem]">
                       {renderChartById(id)}
                     </div>
                   </DraggableChart>
                 ))}
             </div>
 
-            <DropZone>
-              {droppedChartId && renderChartById(droppedChartId, "large")}
+            <DropZone id="drop-zone-1">
+              {droppedChartId1 && renderChartById(droppedChartId1, "large")}
             </DropZone>
 
+            <DropZone id="drop-zone-2">
+              {droppedChartId2 && renderChartById(droppedChartId2, "large")}
+            </DropZone>
           </div>
+
         )}
       </div>
     </DndContext>
